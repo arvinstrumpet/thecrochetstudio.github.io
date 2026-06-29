@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Crochet Studio | Home</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo pacifico">🧶 The Crochet Studio</a>
+      <button class="mobile-menu-btn">☰</button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text reveal-on-scroll">
+        <span class="eyebrow">✨ Handmade with love</span>
+        <h1 class="pacifico">Cozy creations,<br><span>stitch</span> by stitch.</h1>
+        <p style="margin-bottom: 24px; color: var(--text-mid);">Every piece in The Crochet Studio is lovingly handmade. From cuddly amigurumi friends to cozy home accents, we craft things that bring a little extra warmth to your world.</p>
+        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+          <a href="products.html" class="btn btn-primary">Shop Now</a>
+          <a href="#about" class="btn btn-secondary">Learn About Us</a>
+        </div>
+        <p style="font-size: var(--fs-sm); color: var(--text-mid);">⭐⭐⭐⭐⭐ Loved by 200+ happy customers</p>
+      </div>
+      <div class="hero-img-container reveal-on-scroll" style="animation-delay: 0.2s;">
+        <div class="glow-circle"></div>
+        <svg class="chibi-cat" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="55" r="40" fill="#FFFFFF" stroke="#FFAAC8" stroke-width="3"/>
+          <path d="M 20 30 L 30 10 L 45 25 Z" fill="#FFFFFF" stroke="#FFAAC8" stroke-width="3"/>
+          <path d="M 80 30 L 70 10 L 55 25 Z" fill="#FFFFFF" stroke="#FFAAC8" stroke-width="3"/>
+          <circle cx="35" cy="55" r="4" fill="#3D2C35"/>
+          <circle cx="65" cy="55" r="4" fill="#3D2C35"/>
+          <circle cx="36" cy="54" r="1.5" fill="#FFFFFF"/>
+          <circle cx="66" cy="54" r="1.5" fill="#FFFFFF"/>
+          <circle cx="25" cy="62" r="5" fill="#FFD6E7"/>
+          <circle cx="75" cy="62" r="5" fill="#FFD6E7"/>
+          <path d="M 45 62 Q 50 67 55 62" fill="none" stroke="#3D2C35" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg class="floating-yarn" style="top: 10%; left: 10%; animation-delay: 0.5s;" viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="20" fill="#90DDEF"/>
+          <path d="M 10 20 Q 25 10 40 20 M 8 30 Q 25 20 42 30" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container about-grid">
+      <div class="reveal-on-scroll">
+        <h2 class="pacifico" style="color: var(--pink-deep); font-size: var(--fs-xl);">About Us</h2>
+        <h3 class="pacifico" style="font-size: var(--fs-2xl); margin-bottom: 16px;">Made with heart,<br>given with love</h3>
+        <p style="color: var(--text-mid); margin-bottom: 16px;">Hi! I'm Chloe, the hands and heart behind The Crochet Studio. I picked up a crochet hook during a rainy weekend three years ago and never put it down. Every piece I make is a little labour of love — designed to be as soft and joyful as possible.</p>
+        <ul style="color: var(--text-mid); line-height: 2;">
+          <li>🧶 100% handmade, never mass-produced</li>
+          <li>🌱 Eco-conscious materials</li>
+          <li>💝 Custom orders welcome</li>
+        </ul>
+      </div>
+      <div class="polaroid-stack reveal-on-scroll">
+        <div class="polaroid p-1"><div class="img-ph">🧶</div><div class="polaroid-caption">Studio corner</div></div>
+        <div class="polaroid p-2"><div class="img-ph">✨</div><div class="polaroid-caption">Fresh off the hook</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products-preview container">
+    <div class="section-header reveal-on-scroll">
+      <h2 class="pacifico" style="color: var(--pink-deep); font-size: var(--fs-xl);">Fan Favourites</h2>
+      <p style="font-size: var(--fs-lg); color: var(--text-mid);">A little taste of what we make</p>
+    </div>
+    <div class="product-grid">
+      <div class="card reveal-on-scroll" data-category="plushies">
+        <div class="product-img">🐱</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Strawberry Cat Plushie</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">The perfect squishy desk companion</p>
+          <span class="price-tag">$28.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="1">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal-on-scroll" data-category="bouquets">
+        <div class="product-img" style="background: var(--blue-light);">🌸</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Mini Flower Bouquet</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">Never wilts, always adorable</p>
+          <span class="price-tag">$18.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="2">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal-on-scroll" data-category="home">
+        <div class="product-img" style="background: var(--lavender);">☁️</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Cloud Pillow Cover</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">Drift off in pastel comfort</p>
+          <span class="price-tag">$35.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="3">🤍</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="products.html" style="color: var(--pink-deep); font-weight: 700;">View All Products →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="logo pacifico">🧶 The Crochet Studio</h3>
+        <p style="color: var(--text-light); font-size: var(--fs-sm);">Made with love, one stitch at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="#">Instagram 🌸</a></li>
+          <li><a href="#">Pinterest 🌸</a></li>
+          <li><a href="#">TikTok ✨</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 The Crochet Studio. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="js/scripts.js"></script>
+</body>
+</html>

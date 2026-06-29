@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | The Crochet Studio</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo pacifico">🧶 The Crochet Studio</a>
+      <button class="mobile-menu-btn">☰</button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <button class="floating-cart-btn">
+    🛒 <span class="cart-badge">0</span>
+  </button>
+  <div class="cart-sidebar">
+    <h2 class="pacifico" style="margin-bottom: 24px;">Your Cart</h2>
+    <div style="flex:1; color: var(--text-mid);">Items will appear here...</div>
+    <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="alert('Thanks for your order! We\'ll be in touch 💝')">Checkout</button>
+    <button class="btn btn-secondary close-cart" style="width: 100%;">Close</button>
+  </div>
+
+  <div style="background: linear-gradient(120deg, var(--pink-light), var(--blue-light)); padding: 60px 24px; text-align: center;">
+    <h1 class="pacifico" style="font-size: var(--fs-3xl);">Our Collection</h1>
+    <p style="color: var(--text-mid);">Every piece handmade with care. Browse, fall in love, repeat.</p>
+  </div>
+
+  <div class="filter-bar">
+    <div class="container" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="plushies">Plushies</button>
+      <button class="chip" data-filter="home">Home Décor</button>
+      <button class="chip" data-filter="accessories">Accessories</button>
+      <button class="chip" data-filter="bouquets">Bouquets</button>
+    </div>
+  </div>
+
+  <section class="container">
+    <div class="product-grid" id="product-list">
+      <div class="card reveal-on-scroll" data-category="plushies">
+        <div class="product-img">🐱</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Strawberry Cat Plushie</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">The perfect squishy desk companion</p>
+          <span class="price-tag">$28.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="1">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal-on-scroll" data-category="home">
+        <div class="product-img" style="background: var(--lavender);">🌈</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Rainbow Wall Hanging</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">Brighten up any nursery or office</p>
+          <span class="price-tag">$45.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="4">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal-on-scroll" data-category="accessories">
+        <div class="product-img" style="background: var(--blue-light);">🌼</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Daisy Hair Clip Set</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">Springtime vibes all year long</p>
+          <span class="price-tag">$14.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="5">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal-on-scroll" data-category="plushies">
+        <div class="product-img" style="background: var(--pink-light);">🐻</div>
+        <div class="product-info">
+          <h3 style="font-size: var(--fs-md);">Honey Bear Amigurumi</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-mid);">Soft, sweet, and perfectly round</p>
+          <span class="price-tag">$32.00</span>
+          <div class="product-actions">
+            <button class="btn btn-primary add-to-cart" style="flex:1;">Add to Cart</button>
+            <button class="heart-btn" data-id="6">🤍</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="logo pacifico">🧶 The Crochet Studio</h3>
+        <p style="color: var(--text-light); font-size: var(--fs-sm);">Made with love, one stitch at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 The Crochet Studio. All rights reserved.</div>
+  </footer>
+
+  <script src="js/scripts.js"></script>
+</body>
+</html>
