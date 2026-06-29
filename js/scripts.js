@@ -1,15 +1,11 @@
 /* ==========================================================================
    Smooth Scroll to Top on Refresh
    ========================================================================== */
-// 1. Tell the browser to stop auto-snapping to the previous scroll position
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 
-// 2. Wait until the page fully loads, then smoothly slide to the top
 window.addEventListener('load', () => {
-  // A tiny 100ms delay ensures the browser has painted the page 
-  // before starting the animation, making the slide actually visible!
   setTimeout(() => {
     window.scrollTo({
       top: 0,

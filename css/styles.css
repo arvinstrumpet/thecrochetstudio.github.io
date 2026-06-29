@@ -48,10 +48,22 @@ body {
   overflow-x: hidden;
 }
 
+/* Typography Spacing Fixes */
+h1, h2, h3, p, ul, ol {
+  margin-bottom: 16px; /* Global safety margin to prevent overlapping */
+}
+
 h1, h2, h3, .pacifico {
   font-family: 'Pacifico', cursive;
   font-weight: 400;
-  line-height: 1.2;
+  /* Increased from 1.2 to 1.5 to prevent cursive tails from clipping */
+  line-height: 1.5; 
+  padding-bottom: 4px; 
+}
+
+/* Remove bottom margin for the last paragraph in a card so things stay neat */
+.card p:last-child {
+  margin-bottom: 0;
 }
 
 a {
@@ -199,6 +211,7 @@ section {
 .logo {
   font-size: var(--fs-lg);
   color: var(--pink-deep);
+  margin-bottom: 0; /* Reset for nav */
 }
 
 .nav-links {
@@ -310,7 +323,7 @@ footer {
   align-items: center;
   gap: 40px;
 }
-.hero-text h1 { font-size: var(--fs-hero); margin-bottom: 16px; }
+.hero-text h1 { font-size: var(--fs-hero); margin-bottom: 24px; }
 .hero-text h1 span { color: var(--pink-deep); }
 .eyebrow {
   color: var(--pink-deep);
@@ -318,6 +331,8 @@ footer {
   font-size: var(--fs-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
 }
 .hero-img-container {
   position: relative;
@@ -367,7 +382,7 @@ footer {
 .p-2 { top: 40px; left: 100px; transform: rotate(5deg); background: var(--white); z-index: 1; }
 .p-2 .img-ph { background: var(--blue-light); }
 .polaroid:hover { transform: rotate(0deg) scale(1.05); z-index: 10; }
-.polaroid-caption { text-align: center; margin-top: 12px; font-family: 'Pacifico'; font-size: var(--fs-sm); color: var(--text-mid);}
+.polaroid-caption { text-align: center; margin-top: 12px; font-family: 'Pacifico'; font-size: var(--fs-sm); color: var(--text-mid); margin-bottom: 0;}
 
 /* Product Grid & Cards */
 .products-preview { background: var(--cream); }
