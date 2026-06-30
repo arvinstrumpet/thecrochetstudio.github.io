@@ -293,60 +293,95 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================================================
-  // Dynamic Product Pages & Routing
+  // Dynamic Product Pages & Routing (Upgraded for Photos & Carousels)
   // ==========================================================================
   
   // 1. Make all product cards clickable
   document.querySelectorAll('.card').forEach(card => {
-    // Skip if it's not a product card (like contact forms or about-us polaroids)
     if (!card.querySelector('.product-img')) return;
 
     card.addEventListener('click', (e) => {
-      // Prevent redirection if the user is just clicking "Add to Cart" or the Heart
       if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
 
-      // Extract the product data directly from the HTML card
       const name = card.querySelector('h3').innerText;
       const price = card.querySelector('.price-tag').innerText;
       const desc = card.querySelector('p').innerText;
-      const img = card.querySelector('.product-img').innerHTML;
+      
+      // Grab the image tag for the cart
+      const cartImgHTML = card.querySelector('.product-img').innerHTML;
+      
+      // Check for multiple images, otherwise fallback to the cover image
+      const imagesAttr = card.getAttribute('data-images');
+      let imageArray = [];
+      if (imagesAttr) {
+        imageArray = imagesAttr.split(','); // Splits the string into a list of URLs
+      } else {
+        // Fallback if you haven't added data-images to a card yet
+        const imgTag = card.querySelector('img');
+        imageArray = imgTag ? [imgTag.src] : [cartImgHTML];
+      }
 
-      // Save it to browser memory
-      const productData = { name, price, desc, img };
+      const productData = { name, price, desc, cartImg: cartImgHTML, images: imageArray };
       localStorage.setItem('currentProductView', JSON.stringify(productData));
 
-      // Format the name for the URL (e.g. "Strawberry Cat Plushie" -> "strawberry-cat-plushie")
       const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      
-      // Go to the template page
       window.location.href = `product.html?item=${slug}`;
     });
   });
 
-  // 2. Render the template page if we are on it
+  // Global function for the arrow button
+  window.scrollCarousel = function() {
+    const track = document.getElementById('carousel-track');
+    // Finds the width of one image, plus the 16px gap, and scrolls exactly that far
+    const slideWidth = track.querySelector('.carousel-slide').clientWidth;
+    track.scrollBy({ left: slideWidth + 16, behavior: 'smooth' });
+  };
+
+  // 2. Render the template page
   const productDetailContainer = document.getElementById('product-detail-container');
   if (productDetailContainer) {
     const productData = JSON.parse(localStorage.getItem('currentProductView'));
 
     if (productData) {
-      // Update the browser tab title
       document.title = `${productData.name} | The Crochet Studio`;
+
+      // Build the image slides HTML
+      let carouselHTML = '';
+      const hasMultipleImages = productData.images.length > 1;
+
+      // Map through the array of images and create an <img> tag for each
+      const slides = productData.images.map(src => {
+        // Ensures if it's an old emoji it still renders, otherwise makes it an image
+        return src.includes('<') ? 
+          `<div class="carousel-slide" style="display:flex; justify-content:center; align-items:center; font-size:180px; background:var(--pink-light); flex: 0 0 100%;">${src}</div>` : 
+          `<img src="${src}" class="carousel-slide" ${!hasMultipleImages ? 'style="flex: 0 0 100%;"' : ''}>`;
+      }).join('');
+
+      // Add the arrow button ONLY if there are multiple images
+      const arrowBtn = hasMultipleImages ? `<button class="carousel-next-btn" onclick="scrollCarousel()">➔</button>` : '';
+
+      carouselHTML = `
+        <div class="product-carousel">
+          <div class="carousel-track" id="carousel-track">
+            ${slides}
+          </div>
+          ${arrowBtn}
+        </div>
+      `;
 
       // Inject the dynamic HTML
       productDetailContainer.innerHTML = `
-        <div style="background: var(--pink-light); border-radius: 32px; display: flex; justify-content: center; align-items: center; font-size: 180px; min-height: 400px; box-shadow: 0 8px 32px var(--shadow);">
-          ${productData.img}
-        </div>
+        ${carouselHTML}
         <div style="display: flex; flex-direction: column; justify-content: center; padding: 24px 0;">
           <h1 class="pacifico" style="font-size: var(--fs-3xl); color: var(--text-dark); margin-bottom: 16px;">${productData.name}</h1>
           <span class="price-tag" style="font-size: var(--fs-xl); padding: 8px 24px; display: inline-block; width: fit-content; margin-bottom: 24px;">${productData.price}</span>
           <p style="font-size: var(--fs-lg); color: var(--text-mid); margin-bottom: 32px;">
-            ${productData.desc}. Every piece is lovingly handcrafted stitch by stitch, made with love and attention to bring a little warmth into you and your loved ones worlds.
+            ${productData.desc}. Every piece is lovingly handcrafted stitch by stitch, made with the softest eco-conscious yarns to bring a little extra warmth and joy into your world.
           </p>
           <ul style="color: var(--text-mid); margin-bottom: 32px; font-size: var(--fs-md); line-height: 2;">
-            <li>100% Handmade</li>
-            <li>High-quality yarn</li>
-            <li>Ready for you and your loved ones</li>
+            <li>✨ 100% Handmade</li>
+            <li>🧶 Premium hypoallergenic yarn</li>
+            <li>💝 Ready to gift</li>
           </ul>
           <div style="display: flex; gap: 16px;">
             <button class="btn btn-primary add-to-cart-detail" style="flex: 1; font-size: var(--fs-lg); padding: 16px;">Add to Cart 🛒</button>
@@ -354,27 +389,24 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
-      // Wire up the new Add to Cart button to our existing cart logic
       productDetailContainer.querySelector('.add-to-cart-detail').addEventListener('click', () => {
         const priceVal = parseFloat(productData.price.replace('$', ''));
         const existingItem = cart.find(item => item.name === productData.name);
         
         if (existingItem) existingItem.qty += 1;
-        else cart.push({ name: productData.name, price: priceVal, img: productData.img, qty: 1 });
+        // Uses the cartImg HTML we scraped so the real photo shows up in the cart sidebar!
+        else cart.push({ name: productData.name, price: priceVal, img: productData.cartImg, qty: 1 });
         
         localStorage.setItem('cartItems', JSON.stringify(cart));
-        renderCart(); // Force sidebar update
-        
+        renderCart(); 
         const cartSidebar = document.querySelector('.cart-sidebar');
         if (cartSidebar) cartSidebar.classList.add('open');
       });
       
     } else {
-      // Fallback if someone goes to the page without clicking a product first
       productDetailContainer.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 80px 0;">
           <h2 class="pacifico" style="font-size: var(--fs-2xl); color: var(--pink-deep);">Oops! Product not found.</h2>
-          <p style="color: var(--text-mid); margin-bottom: 24px;">Let's get you back to the cute stuff.</p>
           <a href="products.html" class="btn btn-primary">Back to Shop</a>
         </div>
       `;
