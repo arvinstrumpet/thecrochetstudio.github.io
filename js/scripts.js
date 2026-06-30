@@ -64,32 +64,106 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Cart Sidebar Toggle & Logic
+  // ==========================================================================
+  // Cart Sidebar Toggle & Functional Logic
+  // ==========================================================================
   const cartBtn = document.querySelector('.floating-cart-btn');
   const cartSidebar = document.querySelector('.cart-sidebar');
   const closeCartBtn = document.querySelector('.close-cart');
   const cartBadge = document.querySelector('.cart-badge');
-  let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
-  
-  if(cartBadge) cartBadge.innerText = cartCount;
+  const cartItemsContainer = document.getElementById('cart-items-container');
+  const cartTotalEl = document.getElementById('cart-total');
 
+  // Load cart from local storage or start fresh
+  let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  // Function to save and render the cart
+  function renderCart() {
+    // Only run if the cart exists on this page
+    if (!cartSidebar) return; 
+
+    let total = 0;
+    let count = 0;
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<p style="color: var(--text-mid);">Your cart is empty. Time to find some cute things!</p>';
+    } else {
+      cartItemsContainer.innerHTML = ''; // Clear container
+      
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        count += item.qty;
+
+        // Create the HTML for each cart item
+        cartItemsContainer.innerHTML += `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--pink-light); padding-bottom: 8px;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <div style="font-size: 24px; background: var(--pink-light); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">${item.img}</div>
+              <div>
+                <div style="font-weight: 700; font-size: var(--fs-sm); color: var(--text-dark);">${item.name}</div>
+                <div style="color: var(--text-mid); font-size: var(--fs-xs);">$${item.price.toFixed(2)} x ${item.qty}</div>
+              </div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: var(--pink-deep); font-size: 24px; cursor: pointer; transition: transform 0.2s;">&times;</button>
+          </div>
+        `;
+      });
+    }
+
+    // Update Text Elements
+    if (cartTotalEl) cartTotalEl.innerText = `Total: $${total.toFixed(2)}`;
+    if (cartBadge) {
+      cartBadge.innerText = count;
+      // Trigger badge animation
+      cartBadge.style.animation = 'none';
+      setTimeout(() => cartBadge.style.animation = 'heartBeat 0.5s ease', 10);
+    }
+  }
+
+  // Make the remove function globally available so the inline HTML button can click it
+  window.removeFromCart = function(index) {
+    cart.splice(index, 1); // Remove item from array
+    localStorage.setItem('cartItems', JSON.stringify(cart)); // Save to storage
+    renderCart(); // Update UI
+  };
+
+  // Open/Close Sidebar listeners
   if (cartBtn && cartSidebar) {
     cartBtn.addEventListener('click', () => cartSidebar.classList.add('open'));
     closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
   }
 
+  // Add to Cart Button Listener
   document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      cartCount++;
-      localStorage.setItem('cartCount', cartCount);
-      if(cartBadge) {
-        cartBadge.innerText = cartCount;
-        cartBadge.style.animation = 'heartBeat 0.5s ease';
-        setTimeout(() => cartBadge.style.animation = '', 500);
+      
+      // Navigate up the HTML tree to find the parent card, then extract text
+      const card = e.target.closest('.card');
+      const name = card.querySelector('h3').innerText;
+      const priceText = card.querySelector('.price-tag').innerText;
+      const price = parseFloat(priceText.replace('$', ''));
+      const img = card.querySelector('.product-img').innerHTML;
+
+      // Check if this item is already in the cart array
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({ name, price, img, qty: 1 });
       }
+
+      // Save and update
+      localStorage.setItem('cartItems', JSON.stringify(cart));
+      renderCart();
+      
+      // Auto-open the cart so the user sees their item was added!
+      if (cartSidebar) cartSidebar.classList.add('open');
     });
   });
+
+  // Render on initial page load
+  renderCart();
 
   // Product Filtering (Products Page)
   const filterChips = document.querySelectorAll('.chip');

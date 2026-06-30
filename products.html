@@ -25,7 +25,14 @@
   </button>
   <div class="cart-sidebar">
     <h2 class="pacifico" style="margin-bottom: 24px;">Your Cart</h2>
-    <div style="flex:1; color: var(--text-mid);">Items will appear here...</div>
+    
+    <div id="cart-items-container" style="flex: 1; overflow-y: auto; margin-bottom: 16px;">
+      </div>
+    
+    <div id="cart-total" style="font-size: var(--fs-lg); font-weight: 700; text-align: right; margin-bottom: 16px; color: var(--text-dark);">
+      Total: $0.00
+    </div>
+
     <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="alert('Thanks for your order! We\'ll be in touch 💝')">Checkout</button>
     <button class="btn btn-secondary close-cart" style="width: 100%;">Close</button>
   </div>
