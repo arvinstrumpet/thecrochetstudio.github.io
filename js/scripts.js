@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const imagesAttr = card.getAttribute('data-images');
       let imageArray = [];
       if (imagesAttr) {
-        imageArray = imagesAttr.split(','); // Splits the string into a list of URLs
+        imageArray = imagesAttr.split(',').map(url => url.trim()); // Splits and automatically removes sneaky spaces!
       } else {
         // Fallback if you haven't added data-images to a card yet
         const imgTag = card.querySelector('img');
