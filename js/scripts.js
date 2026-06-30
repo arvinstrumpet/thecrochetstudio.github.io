@@ -341,12 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <h1 class="pacifico" style="font-size: var(--fs-3xl); color: var(--text-dark); margin-bottom: 16px;">${productData.name}</h1>
           <span class="price-tag" style="font-size: var(--fs-xl); padding: 8px 24px; display: inline-block; width: fit-content; margin-bottom: 24px;">${productData.price}</span>
           <p style="font-size: var(--fs-lg); color: var(--text-mid); margin-bottom: 32px;">
-            ${productData.desc}. Every piece is lovingly handcrafted stitch by stitch, made with the softest eco-conscious yarns to bring a little extra warmth and joy into your world.
+            ${productData.desc}. Every piece is lovingly handcrafted stitch by stitch, made with love and attention to bring a little warmth into you and your loved ones worlds.
           </p>
           <ul style="color: var(--text-mid); margin-bottom: 32px; font-size: var(--fs-md); line-height: 2;">
-            <li>✨ 100% Handmade</li>
-            <li>🧶 Premium hypoallergenic yarn</li>
-            <li>💝 Ready to gift</li>
+            <li>100% Handmade</li>
+            <li>High-quality yarn</li>
+            <li>Ready for you and your loved ones</li>
           </ul>
           <div style="display: flex; gap: 16px;">
             <button class="btn btn-primary add-to-cart-detail" style="flex: 1; font-size: var(--fs-lg); padding: 16px;">Add to Cart 🛒</button>
