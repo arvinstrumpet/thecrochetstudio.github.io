@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | The Crochet Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo pacifico">🧶 The Crochet Studio</a>
+      <button class="mobile-menu-btn">☰</button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <button class="floating-cart-btn">
+    🛒 <span class="cart-badge">0</span>
+  </button>
+  <div class="cart-sidebar">
+    <h2 class="pacifico" style="margin-bottom: 24px;">Your Cart</h2>
+    <div id="cart-items-container" style="flex: 1; overflow-y: auto; margin-bottom: 16px;"></div>
+    <div id="cart-total" style="font-size: var(--fs-lg); font-weight: 700; text-align: right; margin-bottom: 16px; color: var(--text-dark);">Total: $0.00</div>
+    <button class="btn btn-primary checkout-btn" style="width: 100%; margin-bottom: 12px;">Checkout</button>
+    <button class="btn btn-secondary clear-cart-btn" style="width: 100%; margin-bottom: 12px;">Clear Cart 🗑️</button>
+    <button class="btn btn-secondary close-cart" style="width: 100%; background: none; border: 2px solid var(--pink-light);">Close</button>
+  </div>
+
+  <section class="container reveal-on-scroll" style="margin-top: 80px; margin-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px;" id="product-detail-container">
+    </section>
+
+  <div class="container" style="text-align: center; margin-bottom: 80px;">
+    <a href="products.html" style="color: var(--pink-deep); font-weight: 700;">← Back to Collection</a>
+  </div>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="logo pacifico">🧶 The Crochet Studio</h3>
+        <p style="color: var(--text-light); font-size: var(--fs-sm);">Made with love, one stitch at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 The Crochet Studio. All rights reserved.</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

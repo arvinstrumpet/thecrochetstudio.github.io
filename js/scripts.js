@@ -291,3 +291,92 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================================================
+  // Dynamic Product Pages & Routing
+  // ==========================================================================
+  
+  // 1. Make all product cards clickable
+  document.querySelectorAll('.card').forEach(card => {
+    // Skip if it's not a product card (like contact forms or about-us polaroids)
+    if (!card.querySelector('.product-img')) return;
+
+    card.addEventListener('click', (e) => {
+      // Prevent redirection if the user is just clicking "Add to Cart" or the Heart
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+
+      // Extract the product data directly from the HTML card
+      const name = card.querySelector('h3').innerText;
+      const price = card.querySelector('.price-tag').innerText;
+      const desc = card.querySelector('p').innerText;
+      const img = card.querySelector('.product-img').innerHTML;
+
+      // Save it to browser memory
+      const productData = { name, price, desc, img };
+      localStorage.setItem('currentProductView', JSON.stringify(productData));
+
+      // Format the name for the URL (e.g. "Strawberry Cat Plushie" -> "strawberry-cat-plushie")
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      
+      // Go to the template page
+      window.location.href = `product.html?item=${slug}`;
+    });
+  });
+
+  // 2. Render the template page if we are on it
+  const productDetailContainer = document.getElementById('product-detail-container');
+  if (productDetailContainer) {
+    const productData = JSON.parse(localStorage.getItem('currentProductView'));
+
+    if (productData) {
+      // Update the browser tab title
+      document.title = `${productData.name} | The Crochet Studio`;
+
+      // Inject the dynamic HTML
+      productDetailContainer.innerHTML = `
+        <div style="background: var(--pink-light); border-radius: 32px; display: flex; justify-content: center; align-items: center; font-size: 180px; min-height: 400px; box-shadow: 0 8px 32px var(--shadow);">
+          ${productData.img}
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center; padding: 24px 0;">
+          <h1 class="pacifico" style="font-size: var(--fs-3xl); color: var(--text-dark); margin-bottom: 16px;">${productData.name}</h1>
+          <span class="price-tag" style="font-size: var(--fs-xl); padding: 8px 24px; display: inline-block; width: fit-content; margin-bottom: 24px;">${productData.price}</span>
+          <p style="font-size: var(--fs-lg); color: var(--text-mid); margin-bottom: 32px;">
+            ${productData.desc}. Every piece is lovingly handcrafted stitch by stitch, made with the softest eco-conscious yarns to bring a little extra warmth and joy into your world.
+          </p>
+          <ul style="color: var(--text-mid); margin-bottom: 32px; font-size: var(--fs-md); line-height: 2;">
+            <li>✨ 100% Handmade</li>
+            <li>🧶 Premium hypoallergenic yarn</li>
+            <li>💝 Ready to gift</li>
+          </ul>
+          <div style="display: flex; gap: 16px;">
+            <button class="btn btn-primary add-to-cart-detail" style="flex: 1; font-size: var(--fs-lg); padding: 16px;">Add to Cart 🛒</button>
+          </div>
+        </div>
+      `;
+
+      // Wire up the new Add to Cart button to our existing cart logic
+      productDetailContainer.querySelector('.add-to-cart-detail').addEventListener('click', () => {
+        const priceVal = parseFloat(productData.price.replace('$', ''));
+        const existingItem = cart.find(item => item.name === productData.name);
+        
+        if (existingItem) existingItem.qty += 1;
+        else cart.push({ name: productData.name, price: priceVal, img: productData.img, qty: 1 });
+        
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        renderCart(); // Force sidebar update
+        
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        if (cartSidebar) cartSidebar.classList.add('open');
+      });
+      
+    } else {
+      // Fallback if someone goes to the page without clicking a product first
+      productDetailContainer.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 80px 0;">
+          <h2 class="pacifico" style="font-size: var(--fs-2xl); color: var(--pink-deep);">Oops! Product not found.</h2>
+          <p style="color: var(--text-mid); margin-bottom: 24px;">Let's get you back to the cute stuff.</p>
+          <a href="products.html" class="btn btn-primary">Back to Shop</a>
+        </div>
+      `;
+    }
+  }
