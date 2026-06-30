@@ -480,12 +480,20 @@ footer {
 
 /* Modals & Cart */
 .cart-sidebar {
-  position: fixed; top: 0; right: -100%; width: 350px; height: 100vh;
+  position: fixed; top: 0; right: 0; width: 350px; height: 100vh;
   background: var(--white); box-shadow: -8px 0 32px var(--shadow);
-  z-index: 200; transition: transform 0.4s ease; padding: 24px;
+  z-index: 200; padding: 24px;
   display: flex; flex-direction: column;
+  /* Start completely off-screen to the right */
+  transform: translateX(100%); 
+  /* Smooth animation curve */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
 }
-.cart-sidebar.open { transform: translateX(0); right: 0; }
+
+.cart-sidebar.open { 
+  /* Slide back to its natural position */
+  transform: translateX(0); 
+}
 .floating-cart-btn {
   position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px;
   border-radius: 50%; background: var(--pink-deep); color: var(--white);
