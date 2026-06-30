@@ -230,29 +230,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Form Validation (Contact Page)
+// ==========================================================================
+  // Contact Form Logic (with Formspree)
+  // ==========================================================================
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
-    contactForm.addEventListener('click', (e) => {
-      if(e.target.tagName === 'BUTTON') {
-        e.preventDefault();
-        let valid = true;
-        const inputs = contactForm.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-          if (!input.value.trim()) {
-            valid = false;
-            input.classList.add('error-shake');
-            setTimeout(() => input.classList.remove('error-shake'), 400);
-          }
-        });
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Stop the page from reloading
+      
+      let valid = true;
+      const inputs = contactForm.querySelectorAll('input, select, textarea');
+      const submitBtn = contactForm.querySelector('button');
+      const originalBtnText = submitBtn.innerText;
 
-        if (valid) {
-          contactForm.innerHTML = `
-            <div style="text-align: center; padding: 40px;">
-              <h2 class="pacifico" style="color: var(--pink-deep); margin-bottom:16px;">Message sent! 💝</h2>
-              <p>We'll get back to you within 1–2 business days. Thank you for reaching out!</p>
-            </div>
-          `;
+      // Custom shake animation for empty fields
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          valid = false;
+          input.classList.add('error-shake');
+          setTimeout(() => input.classList.remove('error-shake'), 400);
+        }
+      });
+
+      if (valid) {
+        // Change button text to show it's working
+        submitBtn.innerText = "Sending... ✉️";
+        
+        // Package the form data
+        const formData = new FormData(contactForm);
+
+        try {
+          // ⚠️ PASTE YOUR FORMSPREE URL RIGHT HERE ⚠️
+          const response = await fetch("https://formspree.io/f/mlgywdyg", {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            // Success! Replace the form with the cute thank you message
+            contactForm.innerHTML = `
+              <div style="text-align: center; padding: 40px;">
+                <h2 class="pacifico" style="color: var(--pink-deep); margin-bottom:16px;">Message sent! 💝</h2>
+                <p>We'll get back to you within 1–2 business days. Thank you for reaching out!</p>
+              </div>
+            `;
+          } else {
+            // If Formspree rejects it (e.g. invalid email format)
+            alert("Oops! There was a problem sending your message. Please check your info and try again.");
+            submitBtn.innerText = originalBtnText;
+          }
+        } catch (error) {
+          // If the internet connection fails
+          alert("Oops! There was a network error. Please try again.");
+          submitBtn.innerText = originalBtnText;
         }
       }
     });
