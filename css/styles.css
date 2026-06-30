@@ -509,3 +509,74 @@ footer {
   color: var(--white); width: 24px; height: 24px; border-radius: 50%;
   font-size: 12px; font-weight: 700; display: flex; justify-content: center; align-items: center;
 }
+
+/* ==========================================================================
+   Real Product Photos & Carousel Styling
+   ========================================================================== */
+/* Ensures images fill the grid cards beautifully */
+.product-img {
+  overflow: hidden; /* Keeps images inside the rounded corners */
+}
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Prevents stretching */
+  transition: transform 0.4s ease;
+}
+.card:hover .product-img img {
+  transform: scale(1.05); /* Adds a subtle zoom to the photo on hover! */
+}
+
+/* Product Page Peeking Slider */
+.product-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Hides the ugly default scrollbar */
+  padding-bottom: 12px;
+}
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.carousel-slide {
+  /* This is the magic! 85% width means 15% of the next image peeks out */
+  flex: 0 0 85%; 
+  scroll-snap-align: start;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+/* The Arrow Button */
+.carousel-next-btn {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--pink-deep);
+  border: 2px solid var(--pink-light);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+  z-index: 10;
+}
+.carousel-next-btn:hover {
+  background: var(--pink-mid);
+  color: var(--white);
+  border-color: var(--pink-mid);
+  transform: translateY(-50%) scale(1.1);
+}
