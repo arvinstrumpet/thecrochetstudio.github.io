@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartSidebar = document.querySelector('.cart-sidebar');
   const closeCartBtn = document.querySelector('.close-cart');
   const clearCartBtn = document.querySelector('.clear-cart-btn');
+  const checkoutBtn = document.querySelector('.checkout-btn');
   const cartBadge = document.querySelector('.cart-badge');
   const cartItemsContainer = document.getElementById('cart-items-container');
   const cartTotalEl = document.getElementById('cart-total');
@@ -128,6 +129,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Clear entire cart
   if (clearCartBtn) {
     clearCartBtn.addEventListener('click', () => {
+      cart = [];
+      localStorage.setItem('cartItems', JSON.stringify(cart));
+      renderCart();
+    });
+  }
+
+  // Checkout logic
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Your cart is empty! Add some cute things first 🧶");
+        return;
+      }
+      
+      // Show success message
+      alert("Thanks for your order! We'll be in touch 💝");
+      
+      // Empty the array, save to local storage, and redraw the cart
       cart = [];
       localStorage.setItem('cartItems', JSON.stringify(cart));
       renderCart();
